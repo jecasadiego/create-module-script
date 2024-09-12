@@ -1,12 +1,16 @@
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 const { Sequelize, DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize('dbgecrisis', 'dbadmin', 'S1n@ps1s', {
-  host: 'HERE IS YOUR HOST IP OR LINK',
-  dialect: 'HERE IS YOUR TYPE OF DATABASE (mssql, mysql, postgres, sqlite, or oracle)',
-  port: 1433
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_DIALECT || 'mssql',
+  storage: process.env.DB_STORAGE || undefined, // Solo para SQLite
+  port: process.env.DB_PORT || 1433,
+  logging: false // Puedes desactivar el logging para que no muestre las consultas en consola
 });
+
 
 const createDirectory = (dirPath) => {
   if (!fs.existsSync(dirPath)) {
@@ -38,12 +42,13 @@ const getColumnsFromTable = async (tableName) => {
 const mapDataTypeToSequelize = (type) => {
   if (type.includes('int')) return 'DataTypes.INTEGER';
   if (type.includes('varchar') || type.includes('text')) return 'DataTypes.STRING';
-  if (type.includes('datetime') || type.includes('date') || type.includes('time')) return 'DataTypes.STRING';
+  if (type.includes('datetime') || type.includes('date') || type.includes('time')) return 'DataTypes.DATE';
   if (type.includes('bit')) return 'DataTypes.BOOLEAN';
   if (type.includes('float') || type.includes('double') || type.includes('real')) return 'DataTypes.FLOAT';
   if (type.includes('decimal') || type.includes('numeric')) return 'DataTypes.DECIMAL';
   return 'DataTypes.STRING';
 };
+
 
 const mapDataTypeToCustomType = (type) => {
   if (type.includes('int')) return 'number';

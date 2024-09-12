@@ -1,5 +1,5 @@
 {
-  "name": "create-module-script",
+  "name": "crud-generator",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "mssql": "^11.0.1",
+    "mysql2": "^3.11.2",
     "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7"
   }
