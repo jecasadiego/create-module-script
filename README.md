@@ -5,14 +5,15 @@ Este script genera automáticamente la estructura de un módulo siguiendo la arq
 
 ## Configuración
 
-Antes de ejecutar el script, debes configurar los detalles de tu base de datos en el archivo:
+Antes de ejecutar el script, debes configurar los detalles de tu base de datos en un archivo `.env` en el directorio raíz del proyecto:
 
-```javascript
-const sequelize = new Sequelize('DATABASE_NAME', 'USERNAME', 'PASSWORD', {
-  host: 'HOST_URL',
-  dialect: 'mssql',  // Puedes cambiar a 'mysql', 'postgres', etc., según la base de datos que estés utilizando
-  port: 1433         // Cambia el puerto según tu configuración
-});
+```plaintext
+DB_NAME=DATABASE_NAME
+DB_USER=USERNAME
+DB_PASSWORD=PASSWORD
+DB_HOST=HOST_URL
+DB_PORT=3306  # Cambia el puerto según tu configuración
+DB_DIALECT=mysql  # Puedes cambiar a 'mysql', 'mssql', 'sqlite', etc., según la base de datos que estés utilizando
 ```
 
 ## Uso

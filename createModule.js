@@ -6,9 +6,9 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST,
   dialect: process.env.DB_DIALECT || 'mssql',
-  storage: process.env.DB_STORAGE || undefined, // Solo para SQLite
+  storage: process.env.DB_STORAGE || undefined,
   port: process.env.DB_PORT || 1433,
-  logging: false // Puedes desactivar el logging para que no muestre las consultas en consola
+  logging: false 
 });
 
 
@@ -106,7 +106,7 @@ ${capitalize(moduleName)}Model.init(
   console.log('Entidad y modelo generados con éxito.');
 };
 
-const baseDir = path.join(__dirname, '../', 'src', 'api', 'v1', moduleName);
+const baseDir = path.join(__dirname, 'src', 'api', 'v1', moduleName);
 
 
 
