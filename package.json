@@ -2,7 +2,10 @@
   "name": "module-generator-script",
   "version": "1.0.0",
   "description": "A script to automatically generate module structure following DDD for Node.js projects using Sequelize.",
-  "main": "generateModule.js",
+  "main": "createModule.js",
+  "bin": {
+    "generate-module": "createModule.js" 
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
