@@ -1,28 +1,66 @@
 
 # Module Generator Script
 
-Este script genera automáticamente la estructura de un módulo siguiendo la arquitectura DDD (Domain-Driven Design). Está diseñado para trabajar con Sequelize en un entorno Node.js y soporta múltiples bases de datos, siendo personalizable para adaptarse a diferentes configuraciones.
+Este script genera automáticamente la estructura de un módulo siguiendo la arquitectura DDD (Domain-Driven Design). Está diseñado para trabajar con Sequelize en un entorno Node.js y soporta múltiples bases de datos. La estructura está basada en un proyecto que utiliza Express con Node.js y TypeScript.
+
+## Requisitos
+
+Antes de comenzar, asegúrate de tener lo siguiente:
+
+- **Node.js** y **NPM** instalados.
+- **Express** instalado en tu proyecto. Puedes instalarlo con el siguiente comando:
+
+  ```bash
+  npm install express
+  ```
+
+- **Sequelize** y los paquetes de dialecto de base de datos correspondientes instalados:
+
+  ```bash
+  npm install sequelize mysql2 sqlite3 mssql
+  ```
 
 ## Configuración
 
-Antes de ejecutar el script, debes configurar los detalles de tu base de datos en un archivo `.env` en el directorio raíz del proyecto:
+1. **Instalar Dependencias**
 
-```plaintext
-DB_NAME=DATABASE_NAME
-DB_USER=USERNAME
-DB_PASSWORD=PASSWORD
-DB_HOST=HOST_URL
-DB_PORT=3306  # Cambia el puerto según tu configuración
-DB_DIALECT=mysql  # Puedes cambiar a 'mysql', 'mssql', 'sqlite', etc., según la base de datos que estés utilizando
-```
+   Antes de ejecutar el script, asegúrate de instalar todas las dependencias necesarias ejecutando:
 
-## Uso
+   ```bash
+   npm install
+   ```
 
-### Requisitos
+2. **Configurar Variables de Entorno**
 
-- Node.js y NPM instalados.
-- Una base de datos configurada y accesible.
-- Acceso al esquema de la base de datos para poder extraer las columnas de las tablas.
+   Crea un archivo `.env` en el directorio raíz de tu proyecto con la configuración adecuada según el tipo de base de datos que estés utilizando.
+
+   - **MySQL**:
+     ```plaintext
+     DB_NAME=your_database_name
+     DB_USER=your_username
+     DB_PASSWORD=your_password
+     DB_HOST=localhost
+     DB_PORT=3306
+     DB_DIALECT=mysql
+     ```
+
+   - **SQL Server**:
+     ```plaintext
+     DB_NAME=your_database_name
+     DB_USER=your_username
+     DB_PASSWORD=your_password
+     DB_HOST=your_host
+     DB_PORT=1433
+     DB_DIALECT=mssql
+     ```
+
+   - **SQLite**:
+     ```plaintext
+     DB_DIALECT=sqlite
+     DB_STORAGE=./database.sqlite  # Ruta al archivo SQLite
+     ```
+
+## Uso del Script
 
 ### Ejecución
 
@@ -40,7 +78,7 @@ node generateModule.js User users
 
 Este comando generará la estructura del módulo `User` basado en la tabla `users` de tu base de datos.
 
-### Archivos Generados
+### Estructura de Carpetas
 
 El script generará la siguiente estructura de carpetas y archivos dentro de `src/api/v1/[NombreDelModulo]`:
 
@@ -63,14 +101,31 @@ El script generará la siguiente estructura de carpetas y archivos dentro de `sr
 - **application/**
   - `[NombreDelModulo].usecase.ts`: Casos de uso del módulo.
 
-### Personalización
+### Alias de Módulos
+
+Para facilitar la importación de módulos en tu proyecto, puedes agregar los siguientes alias en tu `package.json`:
+
+```json
+"_moduleAliases": {
+    "@app": "src",
+    "@api": "src/api/v1"
+}
+```
+
+Esto te permitirá usar rutas relativas más sencillas como:
+
+```typescript
+import { UserController } from '@api/user/infrastructure/controller/user.controller';
+```
+
+## Personalización
 
 Puedes personalizar el script para adaptarlo a tu entorno, incluyendo:
 
 - Cambiar la configuración de la base de datos.
 - Modificar las plantillas de código para cumplir con las convenciones de tu equipo.
 
-### Licencia
+## Licencia
 
 Este proyecto está bajo la Licencia MIT. Siéntete libre de utilizarlo y modificarlo según tus necesidades.
 
