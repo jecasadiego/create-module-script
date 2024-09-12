@@ -109,7 +109,7 @@ ${capitalize(moduleName)}Model.init(
   console.log('Entidad y modelo generados con éxito.');
 };
 
-const baseDir = path.join(__dirname, 'src', 'api', 'v1', moduleName);
+const baseDir = path.join(process.cwd(), 'src', 'api', 'v1', moduleName);
 
 
 
